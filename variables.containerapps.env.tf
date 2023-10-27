@@ -96,5 +96,5 @@ variable "workload_profiles" {
 variable "zone_redundancy_enabled" {
   type        = bool
   description = "Enable zone-redundancy for the resource."
-  default     = true
+  default     = false # even though this is a preferred setting for a production scenario, it must be false if no subnet is provided.
 }

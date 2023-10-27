@@ -86,14 +86,6 @@ Type: `string`
 
 Default: `null`
 
-### <a name="input_dns_suffix"></a> [dns\_suffix](#input\_dns\_suffix)
-
-Description: DNS suffix for custom domain configuration (optional).
-
-Type: `string`
-
-Default: `null`
-
 ### <a name="input_enable_telemetry"></a> [enable\_telemetry](#input\_enable\_telemetry)
 
 Description: This variable controls whether or not telemetry is enabled for the module.  
@@ -243,7 +235,7 @@ Description: Enable zone-redundancy for the resource.
 
 Type: `bool`
 
-Default: `true`
+Default: `false`
 
 ## Outputs
 
