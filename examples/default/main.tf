@@ -18,6 +18,11 @@ If it is set to false, then no telemetry will be collected.
 DESCRIPTION
 }
 
+provider "azurerm" {
+  skip_provider_registration = true
+  features {}
+}
+
 # This ensures we have unique CAF compliant names for our resources.
 module "naming" {
   source  = "Azure/naming/azurerm"
@@ -27,13 +32,13 @@ module "naming" {
 # This is required for resource modules
 resource "azurerm_resource_group" "this" {
   name     = module.naming.resource_group.name_unique
-  location = "MYLOCATION"
+  location = "australiaeast"
 }
 
 # This is the module call
-module "MYMODULE" {
+module "managedenvironment" {
   source = "../../"
-  # source             = "Azure/avm-<res/ptn>-<name>/azurerm"
-  enable_telemetry = var.enable_telemetry
-  # ...
+  # source             = "Azure/avm-res-app-managedenvironment/azurerm"
+  name                = module.naming.container_group.name_unique
+  resource_group_name = azurerm_resource_group.this.name
 }

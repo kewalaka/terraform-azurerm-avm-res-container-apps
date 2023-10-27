@@ -1,6 +1,6 @@
-# terraform-azurerm-avm-template
+# terraform-azurerm-avm-res-app-managedenvironment
 
-This is a template repo for Terraform Azure Verified Modules.
+This is a repo for Container Apps Managed Environments in the style of Azure Verified Modules (AVM), it is an 'unofficial' example that has been used for learning AVM.
 
 Things to do:
 
