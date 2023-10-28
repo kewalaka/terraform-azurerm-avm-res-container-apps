@@ -11,17 +11,17 @@ resource "azapi_resource" "this_environment" {
 
   body = jsonencode({
     properties = {
-      appLogsConfiguration = var.log_analytics_workspace_customer_id != null ? {
-        "destination" = var.log_analytics_workspace_destination # "log-analytics", "azuremonitor", "none"
+      appLogsConfiguration = {
+        "destination" = var.log_analytics_workspace_destination
         logAnalyticsConfiguration = {
           "customerId" = var.log_analytics_workspace_customer_id
           "sharedKey"  = var.log_analytics_workspace_primary_shared_key
         }
-      } : null
-      customDomainConfiguration = var.custom_domain_dns_suffix != null ? {
+      }
+      customDomainConfiguration = {
         "certificatePassword" = var.custom_domain_certificate_password
         "dnsSuffix"           = var.custom_domain_dns_suffix
-      } : null
+      }
       daprAIInstrumentationKey = var.instrumentation_key
       peerAuthentication = {
         "mtls" : {
@@ -37,6 +37,7 @@ resource "azapi_resource" "this_environment" {
       zoneRedundant    = var.zone_redundancy_enabled
     }
   })
+
 }
 
 resource "azurerm_management_lock" "this" {

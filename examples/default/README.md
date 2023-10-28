@@ -41,12 +41,19 @@ resource "azurerm_resource_group" "this" {
   location = "australiaeast"
 }
 
+resource "azurerm_log_analytics_workspace" "this" {
+  name                = module.naming.log_analytics_workspace.name_unique
+  resource_group_name = azurerm_resource_group.this.name
+  location            = azurerm_resource_group.this.location
+}
+
 # This is the module call
 module "managedenvironment" {
   source = "../../"
   # source             = "Azure/avm-res-app-managedenvironment/azurerm"
-  name                = module.naming.container_group.name_unique
-  resource_group_name = azurerm_resource_group.this.name
+  name                                = module.naming.container_group.name_unique
+  resource_group_name                 = azurerm_resource_group.this.name
+  log_analytics_workspace_customer_id = azurerm_log_analytics_workspace.this.id
 }
 ```
 
@@ -69,6 +76,7 @@ The following providers are used by this module:
 
 The following resources are used by this module:
 
+- [azurerm_log_analytics_workspace.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/log_analytics_workspace) (resource)
 - [azurerm_resource_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) (resource)
 
 <!-- markdownlint-disable MD013 -->
