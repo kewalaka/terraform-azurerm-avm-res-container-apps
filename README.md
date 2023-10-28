@@ -20,7 +20,7 @@ Things to do:
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.3.0)
 
 - <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) (1.9.0)
 
@@ -85,6 +85,23 @@ Description: DNS suffix for custom domain (optional).
 Type: `string`
 
 Default: `null`
+
+### <a name="input_dedicated_workload_profiles"></a> [dedicated\_workload\_profiles](#input\_dedicated\_workload\_profiles)
+
+Description: Optional. Workload profiles configured for the Managed Environment.
+
+Type:
+
+```hcl
+list(object({
+    name                = string
+    workloadProfileType = string
+    minimumCount        = optional(number, 3)
+    maximumCount        = optional(number, 5)
+  }))
+```
+
+Default: `[]`
 
 ### <a name="input_enable_telemetry"></a> [enable\_telemetry](#input\_enable\_telemetry)
 
@@ -212,22 +229,13 @@ Type: `string`
 
 Default: `null`
 
-### <a name="input_workload_profiles"></a> [workload\_profiles](#input\_workload\_profiles)
+### <a name="input_workload_profiles_enabled"></a> [workload\_profiles\_enabled](#input\_workload\_profiles\_enabled)
 
-Description: Optional. Workload profiles configured for the Managed Environment.
+Description: Whether to use workload profiles, this will create the default Consumption Plan, for dedicated plans use `dedicated_workload_profiles`
 
-Type:
+Type: `bool`
 
-```hcl
-list(object({
-    name                = string
-    workloadProfileType = optional(string, "consumption")
-    # minimumCount        = optional(number, 3)
-    # maximumCount        = optional(number, 5)
-  }))
-```
-
-Default: `[]`
+Default: `false`
 
 ### <a name="input_zone_redundancy_enabled"></a> [zone\_redundancy\_enabled](#input\_zone\_redundancy\_enabled)
 

@@ -1,13 +1,13 @@
 <!-- BEGIN_TF_DOCS -->
-# vnet integrated example with consumption workload profile
+# Consumption workload profile with integrated vnet
 
-This deploys a Container Apps managed environment with vnet integration, using an external load balancer, and a consumption-based workload profile.
+This deploys a Container Apps Managed Environment using the consumption-based workload profile, using vnet integration and an external load balancer.
 
 To modify this to use an internal load balancer, set the following parameter: `vnet_internal_only = true`.
 
 ```hcl
 terraform {
-  required_version = ">= 1.0.0"
+  required_version = ">= 1.3.0"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -75,16 +75,11 @@ resource "azurerm_subnet" "this" {
 module "managedenvironment" {
   source = "../../"
   # source             = "Azure/avm-res-app-managedenvironment/azurerm"
-  name                = module.naming.container_group.name_unique
-  resource_group_name = azurerm_resource_group.this.name
-  vnet_subnet_id      = azurerm_subnet.this.id
-  workload_profiles = [
-    {
-      name                = "Consumption"
-      workloadProfileType = "Consumption"
-    }
-  ]
-  zone_redundancy_enabled = true
+  name                      = module.naming.container_group.name_unique
+  resource_group_name       = azurerm_resource_group.this.name
+  vnet_subnet_id            = azurerm_subnet.this.id
+  workload_profiles_enabled = true
+  zone_redundancy_enabled   = true
 
   log_analytics_workspace_customer_id        = azurerm_log_analytics_workspace.this.workspace_id
   log_analytics_workspace_primary_shared_key = azurerm_log_analytics_workspace.this.primary_shared_key
@@ -96,7 +91,7 @@ module "managedenvironment" {
 
 The following requirements are needed by this module:
 
-- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.0.0)
+- <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) (>= 1.3.0)
 
 - <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) (>= 3.7.0, < 4.0.0)
 

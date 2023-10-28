@@ -33,8 +33,14 @@ resource "azapi_resource" "this_environment" {
         "internal"               = var.vnet_internal_only
         "infrastructureSubnetId" = var.vnet_subnet_id
       } : null
-      workloadProfiles = var.workload_profiles
-      zoneRedundant    = var.zone_redundancy_enabled
+      workloadProfiles = var.workload_profiles_enabled ? merge(
+        {
+          name                = "Consumption"
+          workloadProfileType = "Consumption"
+        },
+        var.dedicated_workload_profiles
+      ) : null
+      zoneRedundant = var.zone_redundancy_enabled
     }
   })
 }
