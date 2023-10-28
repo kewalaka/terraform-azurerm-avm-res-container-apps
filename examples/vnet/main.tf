@@ -72,8 +72,8 @@ module "managedenvironment" {
   vnet_subnet_id      = azurerm_subnet.this.id
   workload_profiles = [
     {
-      workload_profile_name = "Consumption"
-      workload_profile_type = "consumption"
+      name                = "Consumption"
+      workloadProfileType = "consumption"
     }
   ]
   zone_redundancy_enabled = true

@@ -76,19 +76,19 @@ variable "vnet_internal_only" {
 
 variable "workload_profiles" {
   type = list(object({
-    workload_profile_name      = string
-    workload_profile_type      = optional(string, "consumption")
-    workload_profile_min_count = optional(number, 3)
-    workload_profile_max_count = optional(number, 3)
+    name                = string
+    workloadProfileType = optional(string, "consumption")
+    minimumCount        = optional(number, 3)
+    maximumCount        = optional(number, 5)
   }))
   description = "Optional. Workload profiles configured for the Managed Environment."
   default     = []
   validation {
-    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : regex("^[a-zA-Z][a-zA-Z0-9_-]{0,14}[a-zA-Z0-9]$", wp.workload_profile_name)])
+    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : regex("^[a-zA-Z][a-zA-Z0-9_-]{0,14}[a-zA-Z0-9]$", wp.name)])
     error_message = "Invalid value for workload_profile_name. It must start with a letter, contain only letters, numbers, underscores, or dashes, and not end with an underscore or dash. Maximum 15 characters."
   }
   validation {
-    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : index(["consumption", "D4", "D8", "D16", "D32", "E4", "E8", "E16", "E32"], wp.workload_profile_type) >= 0])
+    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : index(["consumption", "D4", "D8", "D16", "D32", "E4", "E8", "E16", "E32"], wp.workloadProfileType) >= 0])
     error_message = "Invalid value for workload_profile_type. Valid options are 'consumption', 'D4', 'D8', 'D16', 'D32', 'E4', 'E8', 'E16', 'E32'."
   }
 }

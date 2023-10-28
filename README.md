@@ -220,10 +220,10 @@ Type:
 
 ```hcl
 list(object({
-    workload_profile_name      = string
-    workload_profile_type      = optional(string, "consumption")
-    workload_profile_min_count = optional(number, 3)
-    workload_profile_max_count = optional(number, 3)
+    name                = string
+    workloadProfileType = optional(string, "consumption")
+    minimumCount        = optional(number, 3)
+    maximumCount        = optional(number, 5)
   }))
 ```
 
