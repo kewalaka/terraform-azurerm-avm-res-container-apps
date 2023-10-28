@@ -78,8 +78,8 @@ variable "workload_profiles" {
   type = list(object({
     name                = string
     workloadProfileType = optional(string, "consumption")
-    minimumCount        = optional(number, 3)
-    maximumCount        = optional(number, 5)
+    # minimumCount        = optional(number, 3)
+    # maximumCount        = optional(number, 5)
   }))
   description = "Optional. Workload profiles configured for the Managed Environment."
   default     = []

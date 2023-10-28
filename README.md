@@ -222,8 +222,8 @@ Type:
 list(object({
     name                = string
     workloadProfileType = optional(string, "consumption")
-    minimumCount        = optional(number, 3)
-    maximumCount        = optional(number, 5)
+    # minimumCount        = optional(number, 3)
+    # maximumCount        = optional(number, 5)
   }))
 ```
 
