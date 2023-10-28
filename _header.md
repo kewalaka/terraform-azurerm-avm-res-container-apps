@@ -1,8 +1,16 @@
-# terraform-azurerm-avm-template
+# terraform-azurerm-avm-res-app-managedenvironment
 
-This is a template repo for Terraform Azure Verified Modules.
+This is a repo for Container Apps Managed Environments in the style of Azure Verified Modules (AVM), it is an 'unofficial' example that has been used for learning AVM.
 
-Things to do:
+Note this uses the AZAPI provider because of support missing within the AzureRM provider for [workload profiles](https://github.com/hashicorp/terraform-provider-azurerm/issues/21747).
+
+Once required functionality is available within AzureRM, [azapi2azurerm](https://github.com/Azure/azapi2azurerm) can be used to convert this code.
+
+This project includes [examples](./examples/) showing default settings and a consumption-based workload profile with vnet integration.
+
+Whilst attributes have been added to support custom domain names, Dapr & certificates this has not been tested.  Functionality is required to add support for environment storage (Azure Files).
+
+To get started:
 
 1. Set up a GitHub repo environment called `test`.
 1. Configure environment protection rule to ensure that approval is required before deploying to this environment.
