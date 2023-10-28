@@ -231,7 +231,7 @@ Default: `[]`
 
 ### <a name="input_zone_redundancy_enabled"></a> [zone\_redundancy\_enabled](#input\_zone\_redundancy\_enabled)
 
-Description: Enable zone-redundancy for the resource.
+Description: Enable zone-redundancy for the resource, this feature requires supplying an available subnet via `vnet_subnet_id`.
 
 Type: `bool`
 

@@ -84,7 +84,7 @@ variable "workload_profiles" {
   description = "Optional. Workload profiles configured for the Managed Environment."
   default     = []
   validation {
-    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : regex("^[a-za-z][a-za-z0-9_-]{0,14}[a-za-z0-9]$", wp.workload_profile_name)])
+    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : regex("^[a-zA-Z][a-zA-Z0-9_-]{0,14}[a-zA-Z0-9]$", wp.workload_profile_name)])
     error_message = "Invalid value for workload_profile_name. It must start with a letter, contain only letters, numbers, underscores, or dashes, and not end with an underscore or dash. Maximum 15 characters."
   }
   validation {
@@ -95,6 +95,6 @@ variable "workload_profiles" {
 
 variable "zone_redundancy_enabled" {
   type        = bool
-  description = "Enable zone-redundancy for the resource."
-  default     = false # even though this is a preferred setting for a production scenario, it must be false if no subnet is provided.
+  description = "Enable zone-redundancy for the resource, this feature requires supplying an available subnet via `vnet_subnet_id`."
+  default     = false
 }

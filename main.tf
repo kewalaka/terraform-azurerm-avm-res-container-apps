@@ -37,7 +37,6 @@ resource "azapi_resource" "this_environment" {
       zoneRedundant    = var.zone_redundancy_enabled
     }
   })
-
 }
 
 resource "azurerm_management_lock" "this" {
