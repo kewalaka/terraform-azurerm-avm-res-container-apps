@@ -63,10 +63,10 @@ resource "azurerm_subnet" "this" {
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes     = ["192.168.0.0/23"]
   delegation {
-    name = "Microsoft.App/environments"
+    name = "Microsoft.App.environments"
     service_delegation {
       name    = "Microsoft.App/environments"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+      actions = ["Microsoft.Network/virtualNetworks/subnets/join/action"]
     }
   }
 }
@@ -81,7 +81,7 @@ module "managedenvironment" {
   workload_profiles = [
     {
       name                = "Consumption"
-      workloadProfileType = "consumption"
+      workloadProfileType = "Consumption"
     }
   ]
   zone_redundancy_enabled = true
