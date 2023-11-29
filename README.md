@@ -80,7 +80,7 @@ The following input variables are optional (have default values):
 
 ### <a name="input_custom_domain_certificate_password"></a> [custom\_domain\_certificate\_password](#input\_custom\_domain\_certificate\_password)
 
-Description: Certificate password for custom domain (optional).
+Description: Certificate password for custom domain.
 
 Type: `string`
 
@@ -88,28 +88,11 @@ Default: `null`
 
 ### <a name="input_custom_domain_dns_suffix"></a> [custom\_domain\_dns\_suffix](#input\_custom\_domain\_dns\_suffix)
 
-Description: DNS suffix for custom domain (optional).
+Description: DNS suffix for custom domain.
 
 Type: `string`
 
 Default: `null`
-
-### <a name="input_dedicated_workload_profiles"></a> [dedicated\_workload\_profiles](#input\_dedicated\_workload\_profiles)
-
-Description: Optional. Workload profiles configured for the Managed Environment.
-
-Type:
-
-```hcl
-list(object({
-    name                = string
-    workloadProfileType = string
-    minimumCount        = optional(number, 3)
-    maximumCount        = optional(number, 5)
-  }))
-```
-
-Default: `[]`
 
 ### <a name="input_enable_telemetry"></a> [enable\_telemetry](#input\_enable\_telemetry)
 
@@ -119,11 +102,11 @@ If it is set to false, then no telemetry will be collected.
 
 Type: `bool`
 
-Default: `false`
+Default: `true`
 
 ### <a name="input_instrumentation_key"></a> [instrumentation\_key](#input\_instrumentation\_key)
 
-Description: Instrumentation key for Dapr AI (optional).
+Description: Instrumentation key for Dapr AI.
 
 Type: `string`
 
@@ -154,7 +137,7 @@ Default: `{}`
 
 ### <a name="input_log_analytics_workspace_customer_id"></a> [log\_analytics\_workspace\_customer\_id](#input\_log\_analytics\_workspace\_customer\_id)
 
-Description: Customer ID for Log Analytics workspace (optional).
+Description: Customer ID for Log Analytics workspace.
 
 Type: `string`
 
@@ -170,7 +153,7 @@ Default: `"log-analytics"`
 
 ### <a name="input_log_analytics_workspace_primary_shared_key"></a> [log\_analytics\_workspace\_primary\_shared\_key](#input\_log\_analytics\_workspace\_primary\_shared\_key)
 
-Description: Primary shared key for Log Analytics (optional).
+Description: Primary shared key for Log Analytics.
 
 Type: `string`
 
@@ -231,15 +214,38 @@ Default: `false`
 
 ### <a name="input_vnet_subnet_id"></a> [vnet\_subnet\_id](#input\_vnet\_subnet\_id)
 
-Description: ID of the VNet subnet (optional).
+Description: ID of the VNet subnet.
 
 Type: `string`
 
 Default: `null`
 
+### <a name="input_workload_profiles"></a> [workload\_profiles](#input\_workload\_profiles)
+
+Description: This lists the workload profiles that will be configured for the Managed Environment.  
+This is in addition to the default Consumpion Plan workload profile.
+
+- `name` - the name of the workload profile.
+- `workloadProfileType` - workload profile type, this determines the amount of compute and memory resource available to the container apps deployed in an environment.
+- `minimiumCount` - the minimum number of instances that must be deployed.
+- `maximiumCount` - the maximum number of instances that may be deployed.
+
+Type:
+
+```hcl
+list(object({
+    name                = string
+    workloadProfileType = string
+    minimumCount        = optional(number, 3)
+    maximumCount        = optional(number, 5)
+  }))
+```
+
+Default: `[]`
+
 ### <a name="input_workload_profiles_enabled"></a> [workload\_profiles\_enabled](#input\_workload\_profiles\_enabled)
 
-Description: Whether to use workload profiles, this will create the default Consumption Plan, for dedicated plans use `dedicated_workload_profiles`
+Description: Whether to use workload profiles, this will create the default Consumption Plan, for dedicated plans use `workload_profiles`
 
 Type: `bool`
 

@@ -13,10 +13,10 @@ resource "azapi_resource" "this_environment" {
     properties = {
       appLogsConfiguration = {
         "destination" = var.log_analytics_workspace_destination
-        logAnalyticsConfiguration = {
+        logAnalyticsConfiguration = var.log_analytics_workspace_destination == "log-analytics" ? {
           "customerId" = var.log_analytics_workspace_customer_id
           "sharedKey"  = var.log_analytics_workspace_primary_shared_key
-        }
+        } : null
       }
       customDomainConfiguration = {
         "certificatePassword" = var.custom_domain_certificate_password
@@ -38,7 +38,7 @@ resource "azapi_resource" "this_environment" {
           name                = "Consumption"
           workloadProfileType = "Consumption"
         }],
-        var.dedicated_workload_profiles
+        var.workload_profiles
       ) : null
       zoneRedundant = var.zone_redundancy_enabled
     }
