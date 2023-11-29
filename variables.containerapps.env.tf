@@ -17,7 +17,7 @@ variable "tags" {
 
 variable "log_analytics_workspace_customer_id" {
   type        = string
-  description = "Customer ID for Log Analytics workspace (optional)."
+  description = "Customer ID for Log Analytics workspace."
   default     = null
 }
 
@@ -27,32 +27,32 @@ variable "log_analytics_workspace_destination" {
   default     = "log-analytics"
 
   validation {
-    condition     = contains(["log-analytics", "azuremonitor", "none"], var.log_analytics_workspace_destination)
-    error_message = "Invalid value for log_analytics_workspace_destination. Valid options are 'log-analytics', 'azuremonitor', or 'none'."
+    condition     = contains(["log-analytics", "azure-monitor", "none"], var.log_analytics_workspace_destination)
+    error_message = "Invalid value for log_analytics_workspace_destination. Valid options are 'log-analytics', 'azure-monitor', or 'none'."
   }
 }
 
 variable "log_analytics_workspace_primary_shared_key" {
   type        = string
-  description = "Primary shared key for Log Analytics (optional)."
+  description = "Primary shared key for Log Analytics."
   default     = null
 }
 
 variable "custom_domain_certificate_password" {
   type        = string
-  description = "Certificate password for custom domain (optional)."
+  description = "Certificate password for custom domain."
   default     = null
 }
 
 variable "custom_domain_dns_suffix" {
   type        = string
-  description = "DNS suffix for custom domain (optional)."
+  description = "DNS suffix for custom domain."
   default     = null
 }
 
 variable "instrumentation_key" {
   type        = string
-  description = "Instrumentation key for Dapr AI (optional)."
+  description = "Instrumentation key for Dapr AI."
   default     = null
 }
 
@@ -64,7 +64,7 @@ variable "peer_authentication_enabled" {
 
 variable "vnet_subnet_id" {
   type        = string
-  description = "ID of the VNet subnet (optional)."
+  description = "ID of the VNet subnet."
   default     = null
 }
 
@@ -76,25 +76,33 @@ variable "vnet_internal_only" {
 
 variable "workload_profiles_enabled" {
   type        = bool
-  description = "Whether to use workload profiles, this will create the default Consumption Plan, for dedicated plans use `dedicated_workload_profiles`"
+  description = "Whether to use workload profiles, this will create the default Consumption Plan, for dedicated plans use `workload_profiles`"
   default     = false
 }
-variable "dedicated_workload_profiles" {
+variable "workload_profiles" {
   type = list(object({
     name                = string
     workloadProfileType = string
     minimumCount        = optional(number, 3)
     maximumCount        = optional(number, 5)
   }))
-  description = "Optional. Workload profiles configured for the Managed Environment."
+  description = <<DESCRIPTION
+This lists the workload profiles that will be configured for the Managed Environment.
+This is in addition to the default Consumpion Plan workload profile.
+
+- `name` - the name of the workload profile.
+- `workloadProfileType` - workload profile type, this determines the amount of compute and memory resource available to the container apps deployed in an environment.
+- `minimiumCount` - the minimum number of instances that must be deployed.
+- `maximiumCount` - the maximum number of instances that may be deployed.
+DESCRIPTION
   default     = []
   validation {
-    condition     = var.dedicated_workload_profiles == null ? true : can([for wp in var.dedicated_workload_profiles : regex("^[a-zA-Z][a-zA-Z0-9_-]{0,14}[a-zA-Z0-9]$", wp.name)])
+    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : regex("^[a-zA-Z][a-zA-Z0-9_-]{0,14}[a-zA-Z0-9]$", wp.name)])
     error_message = "Invalid value for workload_profile_name. It must start with a letter, contain only letters, numbers, underscores, or dashes, and not end with an underscore or dash. Maximum 15 characters."
   }
   validation {
-    condition     = var.dedicated_workload_profiles == null ? true : can([for wp in var.dedicated_workload_profiles : index(["D4", "D8", "D16", "D32", "E4", "E8", "E16", "E32"], wp.workloadProfileType) >= 0])
-    error_message = "Invalid value for workload_profile_type. Valid options are 'Consumption', 'D4', 'D8', 'D16', 'D32', 'E4', 'E8', 'E16', 'E32'."
+    condition     = var.workload_profiles == null ? true : can([for wp in var.workload_profiles : index(["D4", "D8", "D16", "D32", "E4", "E8", "E16", "E32"], wp.workloadProfileType) >= 0])
+    error_message = "Invalid value for workload_profile_type. Valid options are 'D4', 'D8', 'D16', 'D32', 'E4', 'E8', 'E16', 'E32'."
   }
 }
 
