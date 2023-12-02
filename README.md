@@ -1,6 +1,11 @@
 <!-- BEGIN_TF_DOCS -->
 # terraform-azurerm-avm-res-app-managedenvironment
 
+> [!NOTE]
+> This has been archived because there is now an [official AVM module for Container App Managed Environments](https://github.com/Azure/terraform-azurerm-avm-res-app-managedenvironment) 🚀
+> 
+> No further updates will be posted here, this repo has been archived.
+
 This is a repo for Container Apps Managed Environments in the style of Azure Verified Modules (AVM), it is an 'unofficial' example that has been used for learning AVM.
 
 Note this uses the AZAPI provider because of support missing within the AzureRM provider for [workload profiles](https://github.com/hashicorp/terraform-provider-azurerm/issues/21747).
